@@ -1,0 +1,42 @@
+.loginDiv {
+    width: 300px;
+    height: 200px;
+    padding: 20px;
+    border-radius: 15px;
+    border: none;
+    border-bottom: 5px solid grey;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+button {
+    font-size: large;
+    border-radius: 2px;
+    border-bottom: 1px solid black;
+    margin-top: 4px;
+    color: whitesmoke;
+    background-color: firebrick;
+}
+
+input {
+    height: 20px;
+}
+
+.logo {
+    color: firebrick;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+
+.failure {
+    color: tomato;
+    font-size: medium;
+    text-align: center;
+}

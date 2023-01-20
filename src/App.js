@@ -7,10 +7,16 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./App.css";
 import axios from "axios";
 import { format } from "timeago.js";
+import Register from "./Components/Register";
+import Login from "./Components/Login";
 function App() {
-  const [title, setTitle] = useState("");
+  const authStorage = window.localStorage;
+  const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState("");
   const [rating, setRating] = useState(0);
+  const [currentUser, setCurrentUser] = useState(authStorage.getItem("user"));
+  const [login, setShowLogin] = useState(false);
+  const [SignUp, setShowSignUp] = useState(false);
   const [newPin, setNewPin] = useState(null);
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
@@ -40,17 +46,22 @@ function App() {
 
     allPins();
   }, []);
-  const currentUser = "John";
+
   //set pinID to id of pin which has been clicked
   const markerClick = (pinId, pinLat, pinLong) => {
+    // if (currentPlaceId) {
+    //   setCurrentPlaceId(null);
+    // } else {
     setCurrentPlaceId(pinId);
     setViewState({ ...viewState, longitude: pinLong, latitude: pinLat });
+    // }
   };
 
   //for getting coordinates of a place after double clicking on it
   const addNewPin = (e) => {
     const long = e.lngLat.lng;
     const lat = e.lngLat.lat;
+    // setViewState({ ...viewState, longitude: long, latitude: lat });
     setNewPin({
       long: long,
       lat: lat,
@@ -77,9 +88,52 @@ function App() {
       console.log(err);
     }
   };
+
+  const logoutHandler = () => {
+    authStorage.removeItem("user");
+    setCurrentUser(null);
+  };
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{ backgroundColor: "black", position: "relative" }}
+    >
       {/* <Navbar /> */}
+      <div
+        style={{
+          position: "absolute",
+          zIndex: 2,
+          top: "10px",
+          right: "10px",
+        }}
+      >
+        {currentUser ? (
+          <button className="button Logout" onClick={logoutHandler}>
+            Logout
+          </button>
+        ) : (
+          <>
+            <button
+              className="button Login"
+              onClick={() => {
+                setShowSignUp(false);
+                setShowLogin(true);
+              }}
+            >
+              Login
+            </button>
+            <button
+              className="button SignUp"
+              onClick={() => {
+                setShowLogin(false);
+                setShowSignUp(true);
+              }}
+            >
+              Sign Up
+            </button>
+          </>
+        )}
+      </div>
       <Map
         mapLib={maplibregl}
         onDblClick={addNewPin}
@@ -91,7 +145,12 @@ function App() {
           //viewstate gives us current Lat and Long
           // console.log(viewState);
         }}
-        style={{ width: "100%", height: "100vh" }}
+        style={{
+          width: "100",
+          height: "100vh",
+          // position: "absolute",
+          // zIndex: 2,
+        }}
         mapStyle={`https://api.maptiler.com/maps/streets-v2/style.json?key=${process.env.REACT_APP_MAPTILER}`}
       >
         {pins.map((pin, index) => {
@@ -150,7 +209,7 @@ function App() {
             </>
           );
         })}
-        {/* <NavigationControl position="top-left" /> */}
+        <NavigationControl position="top-left" />
         {newPin && (
           <Popup
             longitude={newPin.long}
@@ -197,10 +256,21 @@ function App() {
             </div>
           </Popup>
         )}
+        {SignUp && (
+          <div className="register">
+            <Register showSignUp={setShowSignUp} />
+          </div>
+        )}
+        {login && (
+          <div className="register">
+            <Login
+              showLogin={setShowLogin}
+              authStorage={authStorage}
+              setCurrentUser={setCurrentUser}
+            />
+          </div>
+        )}
       </Map>
-      <button className="button Login">Login</button>
-      <button className="button Logout">Logout</button>
-      <button className="button SignUp">Sign Up</button>
     </div>
   );
 }
