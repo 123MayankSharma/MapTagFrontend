@@ -26,7 +26,7 @@
 label{
   width: max-content;
   color:  firebrick;
-  font-size: 15px;
+  font-size: 18px;
   border-bottom: 1px solid firebrick;
   font-weight: bold;
 }
@@ -45,4 +45,81 @@ label{
 
 .username,.date{
   font-size:18px;
+}
+
+ input,textarea{
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid grey;
+  display: flex;
+  font-size: large;
+  flex-direction: column;
+  justify-content: space-around;
+  box-sizing: none;
+  margin-top: 10px;
+  margin-bottom: 16px;
+
+} 
+
+/* form {
+  width: 250px;
+  height:250px;
+  display: flex;
+  font-size: large;
+  flex-direction: column;
+  justify-content: space-around;
+  box-sizing: none;
+
+} */
+
+
+
+textarea{
+  height: 7 0px;
+}
+
+input::placeholder,textarea::placeholder{
+  font-size: 18px;
+  color: rgba(rgb(168, 160, 160), green, blue, alpha);
+}
+
+
+.addPin{
+    padding-top:0;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    font-size: large;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.submitButton{
+  font-size: large;
+  border-radius: 2px;
+  /* border:none; */
+  border-bottom: 1px solid grey;
+  padding: 5px;
+  margin-top:10px;
+  color:cornsilk;
+  background-color: firebrick;
+  cursor: pointer;
+}
+
+.auth{
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color:cornsilk;
+}
+
+.Login{
+background-color: teal;
+}
+.Logout{
+  background-color: tomato; 
+}
+
+.SignUp{
+  background-color: slate-blue;
 }
