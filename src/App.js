@@ -59,6 +59,7 @@ function App() {
 
   //for getting coordinates of a place after double clicking on it
   const addNewPin = (e) => {
+    if(currentUser){
     const long = e.lngLat.lng;
     const lat = e.lngLat.lat;
     // setViewState({ ...viewState, longitude: long, latitude: lat });
@@ -66,6 +67,10 @@ function App() {
       long: long,
       lat: lat,
     });
+   }else{
+      alert("Please Login To Review a Location!!");
+      setShowLogin(true)
+    }
   };
 
   const submitHandler = async (e) => {
